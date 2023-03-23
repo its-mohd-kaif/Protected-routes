@@ -2,54 +2,34 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Settings from "./components/Settings";
 import Signup from "./components/Signup";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import { ProtectedRoute } from "./components/Protected";
 import NavbarComponent from "./components/Navbar";
 import { AuthProvider } from "./customHooks/AuthProvider";
 import Error from "./components/Error";
 import SettingDisplay from "./components/SettingDisplay";
 function App() {
-  // Routing
-  let router = createBrowserRouter([
-    {
-      path: "/",
-      element: <NavbarComponent />,
-      errorElement: <Error />,
-      children: [
-        {
-          path: "/login",
-          element: <Login />,
-        },
-        {
-          path: "/signup",
-          element: <Signup />,
-        },
-      ],
-    },
-    {
-      path: "/profile",
-      errorElement: <Error />,
-      element: (
-        <ProtectedRoute>
-          <Profile />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/settings",
-      errorElement: <Error />,
-      element: (
-        <ProtectedRoute>
-          <Settings />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/settingDisplay",
-      errorElement: <Error />,
-      element: <SettingDisplay />,
-    },
-  ]);
+  let router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route errorElement={<Error />} path="/" element={<NavbarComponent />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Route>
+
+        <Route errorElement={<Error />} element={<ProtectedRoute />}>
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="/settingDisplay" element={<SettingDisplay />} />
+        </Route>
+      </>
+    )
+  );
   return (
     <div>
       <AuthProvider>

@@ -22,6 +22,16 @@ function NavbarComponent() {
             Login
           </Button>
         </Link>
+        <Link to={"/profile"}>
+          <Button className="ms-5" variant="success">
+            Profile
+          </Button>
+        </Link>
+        <Link to={"/settings"}>
+          <Button className="ms-5" variant="success">
+            Setting
+          </Button>
+        </Link>
       </Navbar>
       <Outlet />
     </div>
